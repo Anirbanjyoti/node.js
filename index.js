@@ -2,10 +2,10 @@ let fs = require("fs");
 let http = require("http");
 
 let server = http.createServer((req, res) => {
-  //  Exists FIle in Sync method===================
+  //  Exists FIle in ASync method===================
   //===============================================
   if (req.url == "/") {
-    let result = fs.existsSync('Demo.txt');
+    fs.exists("syncDemo.txt", function (result) {
       if (result) {
         res.writeHead(200, { "Content-Type": "text/html" });
         res.write("File is Exist");
@@ -15,6 +15,7 @@ let server = http.createServer((req, res) => {
         res.write("File is not exist");
         res.end();
       }
+    });
   }
 });
 server.listen(5050);
