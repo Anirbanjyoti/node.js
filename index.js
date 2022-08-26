@@ -2,19 +2,20 @@ let fs = require("fs");
 let http = require("http");
 
 let server = http.createServer((req, res) => {
-  //  rename FIle Sync method===================
+  //  Delete FIle in ASync method===================
   //===============================================
   if (req.url == "/") {
-   let error = fs.renameSync("asyncDemo.txt", "asyncDemoNew.txt")
+    fs.unlink('asyncDemoNew.txt', function (error) {
       if (error) {
         res.writeHead(200, { "Content-Type": "text/html" });
-        res.write("File Write Fail");
+        res.write("File Delete Fail");
         res.end();
       } else {
         res.writeHead(200, { "Content-Type": "text/html" });
-        res.write("File Write Success");
+        res.write("File Delete Success");
         res.end();
       }
+    });
   }
 });
 server.listen(5050);
